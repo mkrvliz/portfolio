@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>лиза макарова — веб-дизайнер</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Geist Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #000;
+      background-color: #fff;
+    }
+
+    a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── layout ── */
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 80px 0;
+      border-top: 1px solid #000;
+    }
+
+    /* ── header / nav ── */
+
+    header {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      border-bottom: 1px solid #000;
+      z-index: 100;
+    }
+
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    nav a {
+      font-size: 13px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── hero ── */
+
+    #hero {
+      border-top: none;
+      padding: 120px 0 100px;
+    }
+
+    #hero h1 {
+      font-size: clamp(40px, 8vw, 96px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    #hero p {
+      margin-top: 20px;
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── about ── */
+
+    #about h2 {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    #about p {
+      max-width: 640px;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ── portfolio ── */
+
+    #portfolio h2 {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-color: #e8e8e8;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.5;
+      color: #444;
+    }
+
+    /* ── services ── */
+
+    #services h2 {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .services-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .services-list li {
+      padding: 24px 0;
+      border-top: 1px solid #000;
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+    }
+
+    .services-list li:last-child {
+      border-bottom: 1px solid #000;
+    }
+
+    .service-index {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: #888;
+      min-width: 24px;
+    }
+
+    .service-name {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── contacts ── */
+
+    #contacts h2 {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .contacts-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contacts-list li {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      min-width: 80px;
+    }
+
+    .contacts-list a {
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    /* ── footer ── */
+
+    footer {
+      border-top: 1px solid #000;
+      padding: 24px 0;
+    }
+
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer p {
+      font-size: 12px;
+      font-weight: 300;
+      color: #888;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── responsive ── */
+
+    @media (max-width: 768px) {
+      section {
+        padding: 56px 0;
+      }
+
+      #hero {
+        padding: 72px 0 56px;
+      }
+
+      header .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      footer .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service-name {
+        font-size: 18px;
+      }
+
+      nav {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── header ── -->
+  <header>
+    <div class="container">
+      <span class="logo">лиза макарова</span>
+      <nav>
+        <a href="#about">обо мне</a>
+        <a href="#portfolio">портфолио</a>
+        <a href="#services">услуги</a>
+        <a href="#contacts">контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── hero ── -->
+    <section id="hero">
+      <div class="container">
+        <h1>лиза макарова</h1>
+        <p>веб-дизайнер</p>
+      </div>
+    </section>
+
+    <!-- ── about ── -->
+    <section id="about">
+      <div class="container">
+        <h2>обо мне</h2>
+        <p>
+          я веб-дизайнер с фокусом на чистые интерфейсы и понятный пользовательский опыт.
+          работаю на стыке визуальной коммуникации и продуктового мышления — от первого скетча до
+          финального прототипа. верю, что хороший дизайн незаметен: он просто работает.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── portfolio ── -->
+    <section id="portfolio">
+      <div class="container">
+        <h2>портфолио</h2>
+        <div class="portfolio-grid">
+
+          <article class="card">
+            <div class="card-image"></div>
+            <span class="card-title">проект 01</span>
+            <p class="card-desc">редизайн интернет-магазина: структура каталога, карточка товара, корзина</p>
+          </article>
+
+          <article class="card">
+            <div class="card-image"></div>
+            <span class="card-title">проект 02</span>
+            <p class="card-desc">мобильное приложение для трекинга задач — UX-исследование и прототип</p>
+          </article>
+
+          <article class="card">
+            <div class="card-image"></div>
+            <span class="card-title">проект 03</span>
+            <p class="card-desc">фирменный стиль для небольшой студии: логотип, палитра, типографика</p>
+          </article>
+
+          <article class="card">
+            <div class="card-image"></div>
+            <span class="card-title">проект 04</span>
+            <p class="card-desc">лендинг для образовательного курса: структура, иерархия, адаптив</p>
+          </article>
+
+          <article class="card">
+            <div class="card-image"></div>
+            <span class="card-title">проект 05</span>
+            <p class="card-desc">дашборд аналитики: визуализация данных, навигация, компонентная система</p>
+          </article>
+
+          <article class="card">
+            <div class="card-image"></div>
+            <span class="card-title">проект 06</span>
+            <p class="card-desc">онбординг для SaaS-продукта: сценарий, wireframes, hi-fi прототип</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── services ── -->
+    <section id="services">
+      <div class="container">
+        <h2>услуги</h2>
+        <ul class="services-list">
+          <li>
+            <span class="service-index">01</span>
+            <span class="service-name">веб-дизайн</span>
+          </li>
+          <li>
+            <span class="service-index">02</span>
+            <span class="service-name">UI/UX</span>
+          </li>
+          <li>
+            <span class="service-index">03</span>
+            <span class="service-name">брендинг</span>
+          </li>
+          <li>
+            <span class="service-index">04</span>
+            <span class="service-name">прототипирование</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── contacts ── -->
+    <section id="contacts">
+      <div class="container">
+        <h2>контакты</h2>
+        <ul class="contacts-list">
+          <li>
+            <span class="contact-label">email</span>
+            <a href="mailto:hello@example.com">hello@example.com</a>
+          </li>
+          <li>
+            <span class="contact-label">telegram</span>
+            <a href="https://t.me/username" target="_blank" rel="noopener">@username</a>
+          </li>
+          <li>
+            <span class="contact-label">behance</span>
+            <a href="https://behance.net/username" target="_blank" rel="noopener">behance.net/username</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── footer ── -->
+  <footer>
+    <div class="container">
+      <p>© 2026 лиза макарова</p>
+      <p>все права защищены</p>
+    </div>
+  </footer>
+
+</body>
+</html>
