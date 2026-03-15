@@ -88,9 +88,23 @@
 
     /* ── hero ── */
 
-    #hero {
-      border-top: none;
-      padding: 120px 0 100px;
+#hero {
+  border-top: none;
+  min-height: calc(100vh - 53px);
+  display: flex;
+  align-items: center;
+  padding: 24px 0;
+}
+
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      width: 100%;
+    }
+
+    .hero-text {
+      flex: 1;
     }
 
     #hero h1 {
@@ -105,6 +119,40 @@
       font-size: clamp(16px, 2vw, 22px);
       font-weight: 300;
       letter-spacing: 0.04em;
+    }
+
+    .hero-image {
+      flex: 0 0 25%;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+      }
+
+      .hero-text {
+        flex: none;
+        width: 100%;
+      }
+
+      .hero-image {
+        flex: none;
+        width: 100%;
+      }
+
+      .hero-image img {
+        max-height: 40vh;
+        width: auto;
+        max-width: 100%;
+      }
     }
 
     /* ── about ── */
@@ -137,7 +185,7 @@
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 48px 24px;
     }
 
     .card {
@@ -333,8 +381,15 @@
     <!-- ── hero ── -->
     <section id="hero">
       <div class="container">
-        <h1>лиза макарова</h1>
-        <p>веб-дизайнер</p>
+        <div class="hero-inner">
+          <div class="hero-text">
+            <h1>лиза макарова</h1>
+            <p>веб-дизайнер</p>
+          </div>
+          <div class="hero-image">
+            <img src="images/face.jpg" alt="лиза макарова">
+          </div>
+        </div>
       </div>
     </section>
 
