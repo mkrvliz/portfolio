@@ -15,24 +15,28 @@
     }
 
     html {
-      scroll-behavior: smooth;
+      scroll-behavior: auto;
     }
 
     body {
       font-family: 'Geist Mono', monospace;
       font-size: 16px;
       line-height: 1.6;
-      color: #000;
-      background-color: #fff;
+      color: #4D4D4D;
+      background-color: #F5EBE1;
     }
 
     a {
-      color: #000;
+      color: #4D4D4D;
       text-decoration: none;
     }
 
     a:hover {
       text-decoration: underline;
+    }
+
+    .logo:hover {
+      text-decoration: none;
     }
 
     /* ── layout ── */
@@ -53,7 +57,7 @@
     header {
       position: sticky;
       top: 0;
-      background: #fff;
+      background: #F5EBE1;
       border-bottom: 1px solid #000;
       z-index: 100;
     }
@@ -314,7 +318,7 @@
   <!-- ── header ── -->
   <header>
     <div class="container">
-      <span class="logo">лиза макарова</span>
+      <a href="/" class="logo">mkrvliz</a>
       <nav>
         <a href="#about">обо мне</a>
         <a href="#portfolio">портфолио</a>
@@ -448,5 +452,36 @@
     </div>
   </footer>
 
+
+  <script>
+    function easeInOut(t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+
+    function smoothScrollTo(target, duration) {
+      var start = window.scrollY;
+      var end = target.getBoundingClientRect().top + start;
+      var startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var elapsed = timestamp - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, start + (end - start) * easeInOut(progress));
+        if (progress < 1) requestAnimationFrame(step);
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    document.querySelectorAll('nav a[href^="#"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        smoothScrollTo(target, 1200);
+      });
+    });
+  </script>
 </body>
 </html>
