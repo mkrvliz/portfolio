@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ох! керамика — лиза макарова</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='22' viewBox='0 0 16 22'%3E%3Cpath d='M0 0 L0 18 L4.5 13.5 L7.5 20 L9.5 19 L6.5 12 L12 12 Z' fill='%234D4D4D'/%3E%3C/svg%3E") 0 0, auto;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+
+    body {
+      font-family: 'Geist Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #4D4D4D;
+      background-color: #F5EBE1;
+    }
+
+    a {
+      color: #4D4D4D;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 0.9px;
+      text-decoration-color: #7A7A7A;
+    }
+
+    .logo:hover {
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 80px 0;
+      border-top: 1px solid #7A7A7A;
+    }
+
+    /* ── header ── */
+
+    header {
+      position: sticky;
+      top: 0;
+      background: #F5EBE1;
+      border-bottom: 1px solid #7A7A7A;
+      z-index: 100;
+    }
+
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    nav a {
+      font-size: 13px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── footer ── */
+
+    footer {
+      border-top: 1px solid #7A7A7A;
+      padding: 24px 0;
+    }
+
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer p {
+      font-size: 12px;
+      font-weight: 300;
+      color: #888;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── burger ── */
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .burger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: #4D4D4D;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .burger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+    }
+
+    /* ── project hero ── */
+
+    #project-hero {
+      border-top: none;
+      padding: 64px 0 80px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: #888;
+      margin-bottom: 48px;
+    }
+
+    .back-link:hover {
+      color: #4D4D4D;
+      text-decoration: none;
+    }
+
+    .back-arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
+    .back-link:hover .back-arrow {
+      transform: translateX(-4px);
+    }
+
+    .project-title {
+      font-size: clamp(32px, 6vw, 72px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .project-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    .meta-value {
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    /* ── section headings ── */
+
+    .section-heading {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    /* ── about brand ── */
+
+    #project-about .about-text {
+      max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #project-about p {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: #444;
+    }
+
+    /* ── tasks ── */
+
+    .tasks-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .task-item {
+      border-top: 1px solid #7A7A7A;
+      padding: 24px 0;
+      display: flex;
+      gap: 24px;
+    }
+
+    .task-item:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .task-index {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: #888;
+      min-width: 24px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .task-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .task-name {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .task-note {
+      font-size: 13px;
+      font-weight: 300;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* ── stages ── */
+
+    .stage {
+      padding: 80px 0;
+      border-top: 1px solid #7A7A7A;
+    }
+
+    .stage-header {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .stage-index {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: #888;
+      flex-shrink: 0;
+    }
+
+    .stage-title {
+      font-size: 20px;
+      font-weight: 300;
+    }
+
+    .stage-desc {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: #555;
+      max-width: 640px;
+      margin-bottom: 40px;
+    }
+
+    .stage-screens {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .screen-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background-color: #DDD5CC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .screen-placeholder.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .screen-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+    }
+
+    /* ── lightbox ── */
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+      font-family: inherit;
+    }
+
+    .lightbox-close:hover {
+      opacity: 1;
+    }
+
+    /* ── responsive ── */
+
+    @media (max-width: 1024px) {
+      section, .stage {
+        padding: 48px 0;
+      }
+
+      nav { display: none; }
+      .burger { display: flex; }
+
+      .mobile-menu {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #F5EBE1;
+        z-index: 99;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .mobile-menu.open { transform: translateY(0); }
+
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 36px;
+      }
+
+      .mobile-nav a {
+        font-size: 20px;
+        letter-spacing: 0.04em;
+        color: #4D4D4D;
+      }
+
+      .section-heading { margin-bottom: 32px; }
+
+      footer .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      #project-hero { padding: 40px 0 48px; }
+    }
+
+    @media (max-width: 768px) {
+      .stage-screens {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .project-meta { gap: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      section, .stage { padding: 40px 0; }
+      .stage-screens { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── header ── -->
+  <header>
+    <div class="container">
+      <a href="index.html" class="logo">mkrvliz</a>
+      <nav>
+        <a href="index.html#about">обо мне</a>
+        <a href="index.html#portfolio">портфолио</a>
+        <a href="index.html#services">услуги</a>
+        <a href="index.html#contacts">контакты</a>
+      </nav>
+      <button class="burger" id="burger-btn" aria-label="открыть меню" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── mobile menu ── -->
+  <div class="mobile-menu" id="mobile-menu">
+    <nav class="mobile-nav">
+      <a href="index.html#about">обо мне</a>
+      <a href="index.html#portfolio">портфолио</a>
+      <a href="index.html#services">услуги</a>
+      <a href="index.html#contacts">контакты</a>
+    </nav>
+  </div>
+
+  <main>
+
+    <!-- ── hero ── -->
+    <section id="project-hero">
+      <div class="container">
+        <a href="index.html#portfolio" class="back-link">
+          <span class="back-arrow">←</span> портфолио
+        </a>
+        <h1 class="project-title">ох! керамика</h1>
+        <div class="project-meta">
+          <div class="project-meta-item">
+            <span class="meta-label">тип работы</span>
+            <span class="meta-value">дизайн интернет-магазина</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="meta-label">инструмент</span>
+            <span class="meta-value">Figma</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="meta-label">год</span>
+            <span class="meta-value">2025</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── о бренде ── -->
+    <section id="project-about">
+      <div class="container">
+        <h2 class="section-heading">о бренде</h2>
+        <div class="about-text">
+          <p>ох! керамика — это студия, где рождается яркая и качественная керамика ручной работы.</p>
+          <p>в своей работе бренд сочетает современный дизайн с исключительной функциональностью каждого изделия.</p>
+          <p>помимо розничной торговли бренд занимается контрактным производством под заказ для бизнеса.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── задачи ── -->
+    <section id="project-tasks">
+      <div class="container">
+        <h2 class="section-heading">задачи</h2>
+        <ul class="tasks-list">
+          <li class="task-item">
+            <span class="task-index">01</span>
+            <div class="task-body">
+              <span class="task-name">разработать дизайн интернет-магазина</span>
+              <span class="task-note">дизайн должен быть ярким, но при этом не должен перебивать яркость самих изделий</span>
+            </div>
+          </li>
+          <li class="task-item">
+            <span class="task-index">02</span>
+            <div class="task-body">
+              <span class="task-name">продумать структуру и навигацию для упрощения пути пользователя к целевому действию</span>
+              <span class="task-note">целевое действие — оформление заказа / заявка на получение прайса для оптовых заказов</span>
+            </div>
+          </li>
+          <li class="task-item">
+            <span class="task-index">03</span>
+            <div class="task-body">
+              <span class="task-name">создать адаптивный интерфейс для комфортного использования на разных устройствах</span>
+              <span class="task-note">1920, 1440, 1280, 1024, 768 и 360</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── этапы ── -->
+
+    <div class="stage">
+      <div class="container">
+        <div class="stage-header">
+          <span class="stage-index">этап 01</span>
+          <span class="stage-title">название этапа</span>
+        </div>
+        <p class="stage-desc">описание этапа — что было сделано, какие решения приняты и почему.</p>
+        <div class="stage-screens">
+          <div class="screen-placeholder"><img src="images/oh-keramika/01-01.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/01-02.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/01-03.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="container">
+        <div class="stage-header">
+          <span class="stage-index">этап 02</span>
+          <span class="stage-title">название этапа</span>
+        </div>
+        <p class="stage-desc">описание этапа — что было сделано, какие решения приняты и почему.</p>
+        <div class="stage-screens">
+          <div class="screen-placeholder"><img src="images/oh-keramika/02-01.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/02-02.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/02-03.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="container">
+        <div class="stage-header">
+          <span class="stage-index">этап 03</span>
+          <span class="stage-title">название этапа</span>
+        </div>
+        <p class="stage-desc">описание этапа — что было сделано, какие решения приняты и почему.</p>
+        <div class="stage-screens">
+          <div class="screen-placeholder"><img src="images/oh-keramika/03-01.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/03-02.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/03-03.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="container">
+        <div class="stage-header">
+          <span class="stage-index">этап 04</span>
+          <span class="stage-title">название этапа</span>
+        </div>
+        <p class="stage-desc">описание этапа — что было сделано, какие решения приняты и почему.</p>
+        <div class="stage-screens">
+          <div class="screen-placeholder"><img src="images/oh-keramika/04-01.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/04-02.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/04-03.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="container">
+        <div class="stage-header">
+          <span class="stage-index">этап 05</span>
+          <span class="stage-title">название этапа</span>
+        </div>
+        <p class="stage-desc">описание этапа — что было сделано, какие решения приняты и почему.</p>
+        <div class="stage-screens">
+          <div class="screen-placeholder"><img src="images/oh-keramika/05-01.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/05-02.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/05-03.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="container">
+        <div class="stage-header">
+          <span class="stage-index">этап 06</span>
+          <span class="stage-title">название этапа</span>
+        </div>
+        <p class="stage-desc">описание этапа — что было сделано, какие решения приняты и почему.</p>
+        <div class="stage-screens">
+          <div class="screen-placeholder"><img src="images/oh-keramika/06-01.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/06-02.png" alt=""></div>
+          <div class="screen-placeholder"><img src="images/oh-keramika/06-03.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── lightbox ── -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <!-- ── footer ── -->
+  <footer>
+    <div class="container">
+      <p>© 2026 лиза макарова</p>
+      <p>все права защищены</p>
+    </div>
+  </footer>
+
+  <script>
+    // burger menu
+    var burgerBtn  = document.getElementById('burger-btn');
+    var mobileMenu = document.getElementById('mobile-menu');
+
+    burgerBtn.addEventListener('click', function() {
+      var isOpen = burgerBtn.classList.toggle('open');
+      mobileMenu.classList.toggle('open', isOpen);
+      burgerBtn.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        burgerBtn.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        burgerBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // fade-in screens on scroll
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.screen-placeholder').forEach(function(el, i) {
+      el.style.transitionDelay = (i % 3) * 80 + 'ms';
+      observer.observe(el);
+    });
+
+    // lightbox
+    var lightbox     = document.getElementById('lightbox');
+    var lightboxImg  = document.getElementById('lightbox-img');
+    var lightboxClose = document.getElementById('lightbox-close');
+
+    document.querySelectorAll('.screen-placeholder img').forEach(function(img) {
+      img.addEventListener('click', function() {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
