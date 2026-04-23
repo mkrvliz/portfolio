@@ -771,24 +771,49 @@
 
 
   <script>
-    function easeInOut(t) {
-      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-    }
+    // плавный скролл — лёрп-анимация (работает с мышью и тачпадом)
+    if (window.innerWidth > 1024) {
+      (function() {
+        var scrollTarget = window.scrollY;
+        var scrollCurrent = window.scrollY;
+        var rafId = null;
+        var EASE = 0.07;
 
-    function smoothScrollTo(target, duration, offset) {
-      var start = window.scrollY;
-      var end = target.getBoundingClientRect().top + start - (offset || 0);
-      var startTime = null;
+        function maxScroll() {
+          return document.documentElement.scrollHeight - window.innerHeight;
+        }
+        function clamp(v) { return Math.max(0, Math.min(maxScroll(), v)); }
 
-      function step(timestamp) {
-        if (!startTime) startTime = timestamp;
-        var elapsed = timestamp - startTime;
-        var progress = Math.min(elapsed / duration, 1);
-        window.scrollTo(0, start + (end - start) * easeInOut(progress));
-        if (progress < 1) requestAnimationFrame(step);
-      }
+        function tick() {
+          scrollCurrent += (scrollTarget - scrollCurrent) * EASE;
+          var diff = scrollTarget - scrollCurrent;
+          if (Math.abs(diff) < 0.5) {
+            scrollCurrent = scrollTarget;
+            window.scrollTo(0, scrollTarget);
+            rafId = null;
+          } else {
+            window.scrollTo(0, scrollCurrent);
+            rafId = requestAnimationFrame(tick);
+          }
+        }
 
-      requestAnimationFrame(step);
+        window.addEventListener('wheel', function(e) {
+          e.preventDefault();
+          scrollTarget = clamp(scrollTarget + e.deltaY);
+          if (!rafId) {
+            scrollCurrent = window.scrollY;
+            rafId = requestAnimationFrame(tick);
+          }
+        }, { passive: false });
+
+        window.__smoothScrollTo = function(pos) {
+          scrollTarget = clamp(pos);
+          if (!rafId) {
+            scrollCurrent = window.scrollY;
+            rafId = requestAnimationFrame(tick);
+          }
+        };
+      })();
     }
 
     var observer = new IntersectionObserver(function(entries) {
@@ -808,18 +833,18 @@
       observer.observe(card);
     });
 
-    function getScrollOffset() {
-      if (window.innerWidth <= 1024) return 50;
-      return 0;
-    }
-
     document.querySelectorAll('nav a[href^="#"], .mobile-nav a[href^="#"]').forEach(function(link) {
       link.addEventListener('click', function(e) {
-        var target = document.querySelector(this.getAttribute('href'));
-        if (!target) return;
+        var targetEl = document.querySelector(this.getAttribute('href'));
+        if (!targetEl) return;
         e.preventDefault();
         closeMobileMenu();
-        smoothScrollTo(target, 1200, getScrollOffset());
+        if (window.__smoothScrollTo) {
+          var top = targetEl.getBoundingClientRect().top + window.scrollY;
+          window.__smoothScrollTo(top);
+        } else {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
 
@@ -840,36 +865,6 @@
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
-    // плавный скролл колесом мыши (только десктоп)
-    if (!('ontouchstart' in window)) {
-      var wheelTargetY = window.scrollY;
-      var wheelCurrentY = window.scrollY;
-      var wheelRaf = null;
-
-      function wheelTick() {
-        wheelCurrentY += (wheelTargetY - wheelCurrentY) * 0.09;
-        window.scrollTo(0, wheelCurrentY);
-        if (Math.abs(wheelTargetY - wheelCurrentY) > 0.5) {
-          wheelRaf = requestAnimationFrame(wheelTick);
-        } else {
-          window.scrollTo(0, wheelTargetY);
-          wheelRaf = null;
-        }
-      }
-
-      window.addEventListener('wheel', function(e) {
-        e.preventDefault();
-        var delta = e.deltaMode === 1 ? e.deltaY * 24 : e.deltaY;
-        wheelTargetY = Math.max(0, Math.min(
-          wheelTargetY + delta,
-          document.documentElement.scrollHeight - window.innerHeight
-        ));
-        if (!wheelRaf) {
-          wheelCurrentY = window.scrollY;
-          wheelRaf = requestAnimationFrame(wheelTick);
-        }
-      }, { passive: false });
-    }
   // аккордеон услуги
   document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -883,6 +878,8 @@
     var hero     = document.getElementById('hero');
     var ctx      = canvas.getContext('2d');
     var isMobile = window.innerWidth <= 1024;
+    var canvasVisible = true;
+    var tickFn = null;
 
     var codeLines = [
       "body { font-family: 'Geist Mono', monospace; background-color: #F5EBE1; color: #4D4D4D; }",
@@ -976,9 +973,10 @@
           }
         }
 
-        requestAnimationFrame(tick);
+        if (canvasVisible) requestAnimationFrame(tick);
       }
 
+      tickFn = tick;
       window.addEventListener('resize', resize);
       document.fonts.ready.then(function() {
         resize();
@@ -1080,7 +1078,7 @@
             }
           }
         }
-        requestAnimationFrame(tick);
+        if (canvasVisible) requestAnimationFrame(tick);
       }
 
       hero.addEventListener('mousemove', function(e) {
@@ -1090,12 +1088,21 @@
       });
       hero.addEventListener('mouseleave', function() { mouseX = mouseY = -9999; });
 
+      tickFn = tick;
       document.fonts.ready.then(function() {
         resize();
         requestAnimationFrame(tick);
       });
       window.addEventListener('resize', resize);
     }
+
+    // останавливаем анимацию когда hero вне вьюпорта
+    new IntersectionObserver(function(entries) {
+      var wasVisible = canvasVisible;
+      canvasVisible = entries[0].isIntersecting;
+      if (canvasVisible && !wasVisible && tickFn) requestAnimationFrame(tickFn);
+    }, { threshold: 0 }).observe(canvas);
+
   })();
 
   </script>
