@@ -26,9 +26,12 @@ if (window.innerWidth > 1024) {
 
     window.addEventListener('wheel', function(e) {
       e.preventDefault();
-      scrollTarget = clamp(scrollTarget + e.deltaY);
       if (!rafId) {
         scrollCurrent = window.scrollY;
+        scrollTarget = scrollCurrent;
+      }
+      scrollTarget = clamp(scrollTarget + e.deltaY);
+      if (!rafId) {
         rafId = requestAnimationFrame(tick);
       }
     }, { passive: false });

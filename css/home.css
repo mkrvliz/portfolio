@@ -369,10 +369,6 @@
     max-width: 100%;
   }
 
-  #about h2, #portfolio h2, #process h2, #services h2, #contacts h2 {
-    margin-bottom: 32px;
-  }
-
   .portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
@@ -396,10 +392,6 @@
 }
 
 @media (max-width: 480px) {
-  #about h2, #portfolio h2, #process h2, #services h2, #contacts h2 {
-    margin-bottom: 28px;
-  }
-
   .portfolio-grid {
     grid-template-columns: 1fr;
     gap: 24px;
