@@ -23,17 +23,23 @@ body {
 a {
   color: #4D4D4D;
   text-decoration: none;
+  background-image: linear-gradient(#7A7A7A, #7A7A7A);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 0.9px;
+  transition: background-size 0.3s ease;
 }
 
 a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 0.9px;
-  text-decoration-color: #7A7A7A;
+  background-size: 100% 0.9px;
+}
+
+.logo {
+  background-image: none;
 }
 
 .logo:hover {
-  text-decoration: none;
+  background-size: 0%;
 }
 
 /* ── layout ── */

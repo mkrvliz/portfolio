@@ -16,6 +16,28 @@ document.querySelectorAll('.card').forEach(function(card, i) {
   cardObserver.observe(card);
 });
 
+// ── fade-in карточек этапов работы ──
+var stepObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var step = entry.target;
+      stepObserver.unobserve(step);
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          step.classList.add('visible');
+          var delay = parseFloat(step.style.transitionDelay) || 0;
+          setTimeout(function() { step.style.transitionDelay = '0ms'; }, delay + 500);
+        });
+      });
+    }
+  });
+}, { threshold: 0.15, rootMargin: '-53px 0px 0px 0px' });
+
+document.querySelectorAll('.process-step').forEach(function(step, i) {
+  step.style.transitionDelay = (i % 3) * 100 + 'ms';
+  stepObserver.observe(step);
+});
+
 // ── аккордеон услуг ──
 document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
   btn.addEventListener('click', function() {
