@@ -65,10 +65,7 @@ function initSlider(wrap) {
   window.addEventListener('resize', function() { setWidths(); update(); });
 }
 
-// инициализация существующих слайдеров
-document.querySelectorAll('.slider-wrap').forEach(function(wrap) {
-  initSlider(wrap);
-});
+document.querySelectorAll('.slider-wrap').forEach(initSlider);
 
 // мобильный: конвертировать .stage-screens в слайдеры
 if (window.innerWidth <= 768) {
@@ -76,27 +73,17 @@ if (window.innerWidth <= 768) {
     var items = Array.from(screens.querySelectorAll('.screen-placeholder'));
     if (items.length === 0) return;
 
-    var wrap     = document.createElement('div'); wrap.className = 'slider-wrap';
-    var viewport = document.createElement('div'); viewport.className = 'slider-viewport';
-    var track    = document.createElement('div'); track.className = 'slider-track';
+    var wrap = document.createElement('div');
+    wrap.className = 'slider-wrap';
+    wrap.innerHTML =
+      '<div class="slider-viewport"><div class="slider-track"></div></div>' +
+      '<div class="slider-controls">' +
+        '<button class="slider-arrow slider-prev" aria-label="назад" disabled>←</button>' +
+        '<button class="slider-arrow slider-next" aria-label="вперёд">→</button>' +
+      '</div>';
 
+    var track = wrap.querySelector('.slider-track');
     items.forEach(function(item) { track.appendChild(item); });
-    viewport.appendChild(track);
-    wrap.appendChild(viewport);
-
-    var controls = document.createElement('div'); controls.className = 'slider-controls';
-    var pBtn = document.createElement('button');
-    pBtn.className = 'slider-arrow slider-prev';
-    pBtn.setAttribute('aria-label', 'назад');
-    pBtn.disabled = true;
-    pBtn.textContent = '←';
-    var nBtn = document.createElement('button');
-    nBtn.className = 'slider-arrow slider-next';
-    nBtn.setAttribute('aria-label', 'вперёд');
-    nBtn.textContent = '→';
-    controls.appendChild(pBtn);
-    controls.appendChild(nBtn);
-    wrap.appendChild(controls);
 
     screens.parentNode.replaceChild(wrap, screens);
     initSlider(wrap);
@@ -129,7 +116,11 @@ function closeLightbox() {
   magnifier.style.display = 'none';
 }
 
-// привязка кликов к фото (по этапам, не глобально)
+function go(delta) {
+  currentIndex = (currentIndex + delta + stageImgs.length) % stageImgs.length;
+  lightboxImg.src = stageImgs[currentIndex].src;
+}
+
 document.querySelectorAll('.stage').forEach(function(stage) {
   var imgs = Array.from(stage.querySelectorAll('.screen-placeholder img'));
   imgs.forEach(function(img, i) {
@@ -137,16 +128,8 @@ document.querySelectorAll('.stage').forEach(function(stage) {
   });
 });
 
-lightboxPrev.addEventListener('click', function() {
-  currentIndex = (currentIndex - 1 + stageImgs.length) % stageImgs.length;
-  lightboxImg.src = stageImgs[currentIndex].src;
-});
-
-lightboxNext.addEventListener('click', function() {
-  currentIndex = (currentIndex + 1) % stageImgs.length;
-  lightboxImg.src = stageImgs[currentIndex].src;
-});
-
+lightboxPrev.addEventListener('click', function() { go(-1); });
+lightboxNext.addEventListener('click', function() { go(1); });
 lightboxClose.addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', function(e) {
   if (e.target === lightbox) closeLightbox();
@@ -154,15 +137,9 @@ lightbox.addEventListener('click', function(e) {
 
 document.addEventListener('keydown', function(e) {
   if (!lightbox.classList.contains('open')) return;
-  if (e.key === 'Escape') { closeLightbox(); return; }
-  if (e.key === 'ArrowLeft') {
-    currentIndex = (currentIndex - 1 + stageImgs.length) % stageImgs.length;
-    lightboxImg.src = stageImgs[currentIndex].src;
-  }
-  if (e.key === 'ArrowRight') {
-    currentIndex = (currentIndex + 1) % stageImgs.length;
-    lightboxImg.src = stageImgs[currentIndex].src;
-  }
+  if (e.key === 'Escape') closeLightbox();
+  else if (e.key === 'ArrowLeft') go(-1);
+  else if (e.key === 'ArrowRight') go(1);
 });
 
 // лупа (только без тача)

@@ -29,8 +29,12 @@ document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
   var hero     = document.getElementById('hero');
   var ctx      = canvas.getContext('2d');
   var isMobile = window.innerWidth <= 1024;
+  var FS = 11, LH = 20;
   var canvasVisible = true;
   var tickFn = null;
+  var build = null;
+  var safeZone = { x: 0, y: 0, w: 0, h: 0 };
+  var pad = isMobile ? 40 : 80;
 
   var codeLines = [
     "body { font-family: 'Geist Mono', monospace; background-color: #F5EBE1; color: #4D4D4D; }",
@@ -50,46 +54,47 @@ document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
     ".service-name { font-size: 22px; font-weight: 500; letter-spacing: -0.01em; }",
   ];
 
+  function updateSafeZone() {
+    var cr = canvas.getBoundingClientRect();
+    var ir = hero.querySelector('.hero-inner').getBoundingClientRect();
+    safeZone.x = ir.left - cr.left - pad;
+    safeZone.y = ir.top  - cr.top  - pad;
+    safeZone.w = ir.width  + pad * 2;
+    safeZone.h = ir.height + pad * 2;
+  }
+
+  function resize() {
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    build();
+    updateSafeZone();
+  }
+
+  function buildRowString(rowIndex, cols) {
+    var src = codeLines[rowIndex % codeLines.length] + '   ';
+    var str = '';
+    while (str.length < cols) str += src;
+    return str;
+  }
+
   if (isMobile) {
     // ── бегущая строка по всему фону (мобильный / планшет) ──
-    var FS = 11, LH = 20;
     var CW, rowStrs = [];
     var speed = 25;
     var offset = 0, lastTs = null;
-    var safeZone = { x: 0, y: 0, w: 0, h: 0 };
 
-    function updateSafeZone() {
-      var cr = canvas.getBoundingClientRect();
-      var ir = hero.querySelector('.hero-inner').getBoundingClientRect();
-      var pad = 40;
-      safeZone.x = ir.left - cr.left - pad;
-      safeZone.y = ir.top  - cr.top  - pad;
-      safeZone.w = ir.width  + pad * 2;
-      safeZone.h = ir.height + pad * 2;
-    }
-
-    function build() {
+    build = function() {
       rowStrs = [];
       ctx.font = FS + 'px "Geist Mono", monospace';
       CW = ctx.measureText('x').width;
       var cols    = Math.ceil(canvas.width / CW) + 2;
       var numRows = Math.floor(canvas.height / LH);
       for (var r = 0; r < numRows; r++) {
-        var src = codeLines[r % codeLines.length] + '   ';
-        var str = '';
-        while (str.length < cols) str += src;
-        rowStrs.push(str);
+        rowStrs.push(buildRowString(r, cols));
       }
-    }
+    };
 
-    function resize() {
-      canvas.width  = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      build();
-      updateSafeZone();
-    }
-
-    function tick(ts) {
+    tickFn = function tick(ts) {
       if (!lastTs) lastTs = ts;
       var dt = Math.min((ts - lastTs) / 1000, 0.1);
       lastTs = ts;
@@ -123,44 +128,22 @@ document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
       }
 
       if (canvasVisible) requestAnimationFrame(tick);
-    }
-
-    tickFn = tick;
-    window.addEventListener('resize', resize);
-    document.fonts.ready.then(function() {
-      resize();
-      requestAnimationFrame(tick);
-    });
+    };
 
   } else {
     // ── отталкивание от курсора (десктоп) ──
-    var FS = 11, LH = 20;
     var CW, rows2d = [], rowStrs = [];
     var mouseX = -9999, mouseY = -9999;
     var R = 60, K = 5.5, SP = 0.07, DM = 0.70;
-    var safeZone = { x: 0, y: 0, w: 0, h: 0 };
 
-    function updateSafeZone() {
-      var cr = canvas.getBoundingClientRect();
-      var ir = hero.querySelector('.hero-inner').getBoundingClientRect();
-      var pad = 80;
-      safeZone.x = ir.left - cr.left - pad;
-      safeZone.y = ir.top  - cr.top  - pad;
-      safeZone.w = ir.width  + pad * 2;
-      safeZone.h = ir.height + pad * 2;
-    }
-
-    function build() {
+    build = function() {
       rows2d = []; rowStrs = [];
       ctx.font = FS + 'px "Geist Mono", monospace';
       CW = ctx.measureText('x').width;
       var cols = Math.ceil(canvas.width / CW) + 2;
       var numRows = Math.floor(canvas.height / LH);
       for (var r = 0; r < numRows; r++) {
-        var src = codeLines[r % codeLines.length] + '   ';
-        var str = '';
-        while (str.length < cols) str += src;
-        str = str.slice(0, cols);
+        var str = buildRowString(r, cols).slice(0, cols);
         rowStrs.push(str);
         var row = [];
         for (var c = 0; c < cols; c++) {
@@ -168,14 +151,7 @@ document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
         }
         rows2d.push(row);
       }
-    }
-
-    function resize() {
-      canvas.width  = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      build();
-      updateSafeZone();
-    }
+    };
 
     function applyPhysics(p) {
       var dx = p.x - mouseX, dy = p.y - mouseY;
@@ -194,7 +170,7 @@ document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
       p.y += p.vy;
     }
 
-    function tick() {
+    tickFn = function tick() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.font      = FS + 'px "Geist Mono", monospace';
       ctx.fillStyle = 'rgba(77,77,77,0.22)';
@@ -228,7 +204,7 @@ document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
         }
       }
       if (canvasVisible) requestAnimationFrame(tick);
-    }
+    };
 
     hero.addEventListener('mousemove', function(e) {
       var r = canvas.getBoundingClientRect();
@@ -236,14 +212,13 @@ document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
       mouseY = e.clientY - r.top;
     });
     hero.addEventListener('mouseleave', function() { mouseX = mouseY = -9999; });
-
-    tickFn = tick;
-    document.fonts.ready.then(function() {
-      resize();
-      requestAnimationFrame(tick);
-    });
-    window.addEventListener('resize', resize);
   }
+
+  window.addEventListener('resize', resize);
+  document.fonts.ready.then(function() {
+    resize();
+    requestAnimationFrame(tickFn);
+  });
 
   // останавливаем анимацию когда hero вне вьюпорта
   new IntersectionObserver(function(entries) {

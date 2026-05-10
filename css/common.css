@@ -1,3 +1,13 @@
+:root {
+  --bg: #F5EBE1;
+  --text: #4D4D4D;
+  --border: #7A7A7A;
+  --muted: #888;
+  --muted-2: #555;
+  --muted-3: #444;
+  --header-h: 53px;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -8,20 +18,16 @@ html, body {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='22' viewBox='0 0 16 22'%3E%3Cpath d='M0 0 L0 18 L4.5 13.5 L7.5 20 L9.5 19 L6.5 12 L12 12 Z' fill='%234D4D4D'/%3E%3C/svg%3E") 0 0, auto;
 }
 
-html {
-  scroll-behavior: auto;
-}
-
 body {
   font-family: 'Geist Mono', monospace;
   font-size: 16px;
   line-height: 1.6;
-  color: #4D4D4D;
-  background-color: #F5EBE1;
+  color: var(--text);
+  background-color: var(--bg);
 }
 
 a {
-  color: #4D4D4D;
+  color: var(--text);
   text-decoration: none;
 }
 
@@ -29,7 +35,7 @@ a:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-thickness: 0.9px;
-  text-decoration-color: #7A7A7A;
+  text-decoration-color: var(--border);
 }
 
 .logo:hover {
@@ -46,7 +52,15 @@ a:hover {
 
 section {
   padding: 80px 0;
-  border-top: 1px solid #7A7A7A;
+  border-top: 1px solid var(--border);
+}
+
+.section-heading {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
 }
 
 /* ── header / nav ── */
@@ -54,8 +68,8 @@ section {
 header {
   position: sticky;
   top: 0;
-  background: #F5EBE1;
-  border-bottom: 1px solid #7A7A7A;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
   z-index: 100;
 }
 
@@ -86,7 +100,7 @@ nav a {
 /* ── footer ── */
 
 footer {
-  border-top: 1px solid #7A7A7A;
+  border-top: 1px solid var(--border);
   padding: 24px 0;
 }
 
@@ -99,7 +113,7 @@ footer .container {
 footer p {
   font-size: 12px;
   font-weight: 300;
-  color: #888;
+  color: var(--muted);
   letter-spacing: 0.03em;
 }
 
@@ -120,7 +134,7 @@ footer p {
   display: block;
   width: 22px;
   height: 1.5px;
-  background: #4D4D4D;
+  background: var(--text);
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -142,6 +156,10 @@ footer p {
     scroll-margin-top: 50px;
   }
 
+  .section-heading {
+    margin-bottom: 32px;
+  }
+
   nav {
     display: none;
   }
@@ -157,7 +175,7 @@ footer p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #F5EBE1;
+    background: var(--bg);
     z-index: 99;
     flex-direction: column;
     align-items: center;
@@ -180,12 +198,18 @@ footer p {
   .mobile-nav a {
     font-size: 20px;
     letter-spacing: 0.04em;
-    color: #4D4D4D;
+    color: var(--text);
   }
 
   footer .container {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-heading {
+    margin-bottom: 28px;
   }
 }
