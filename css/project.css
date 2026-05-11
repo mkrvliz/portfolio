@@ -16,18 +16,19 @@
   margin-bottom: 48px;
 }
 
-.back-link:hover {
-  color: #4D4D4D;
-  text-decoration: none;
-}
-
 .back-arrow {
   display: inline-block;
   transition: transform 0.2s ease;
 }
 
-.back-link:hover .back-arrow {
-  transform: translateX(-4px);
+@media (hover: hover) {
+  .back-link:hover {
+    color: #4D4D4D;
+  }
+
+  .back-link:hover .back-arrow {
+    transform: translateX(-4px);
+  }
 }
 
 .project-title {
@@ -92,10 +93,11 @@
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.project-link-btn:hover {
-  background: #4D4D4D;
-  color: #F5EBE1;
-  text-decoration: none;
+@media (hover: hover) {
+  .project-link-btn:hover {
+    background: #4D4D4D;
+    color: #F5EBE1;
+  }
 }
 
 /* ── section heading ── */
@@ -106,6 +108,14 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 40px;
+}
+
+/* ── inline link inside paragraph ── */
+
+.inline-link {
+  color: inherit;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 0.9px;
 }
 
 /* ── about brand ── */
@@ -284,9 +294,11 @@
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.slider-arrow:hover:not(:disabled) {
-  background: #4D4D4D;
-  color: #F5EBE1;
+@media (hover: hover) {
+  .slider-arrow:hover:not(:disabled) {
+    background: #4D4D4D;
+    color: #F5EBE1;
+  }
 }
 
 .slider-arrow:disabled {
@@ -402,9 +414,5 @@
 @media (max-width: 480px) {
   .stage {
     padding: 40px 0;
-  }
-
-  .stage-screens {
-    grid-template-columns: 1fr;
   }
 }

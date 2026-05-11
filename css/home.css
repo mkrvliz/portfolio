@@ -69,9 +69,10 @@
   transition: transform 0.28s ease;
 }
 
-.hero-btn:hover {
-  transform: translateY(-3px);
-  background-size: 100% 0.9px;
+@media (hover: hover) {
+  .hero-btn:hover {
+    transform: translateY(-3px);
+  }
 }
 
 /* ── section headings ── */
@@ -115,11 +116,6 @@
   transform: translateY(0);
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  transition: opacity 0.5s ease, transform 0.28s ease;
-}
-
 .card-image {
   width: 100%;
   aspect-ratio: 4 / 3;
@@ -135,8 +131,15 @@
   transition: transform 0.4s ease;
 }
 
-.card:hover .card-image img {
-  transform: scale(1.04);
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-8px);
+    transition: opacity 0.5s ease, transform 0.28s ease;
+  }
+
+  .card:hover .card-image img {
+    transform: scale(1.04);
+  }
 }
 
 .card-title {
@@ -144,9 +147,6 @@
   font-weight: 600;
   letter-spacing: 0.01em;
   align-self: flex-start;
-}
-
-.card-title:hover {
 }
 
 .card-desc {
@@ -166,18 +166,6 @@
   letter-spacing: 0.05em;
   margin-top: 6px;
   color: #4D4D4D;
-}
-
-.card-more:hover {
-}
-
-.card-arrow {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-
-.card-more:hover .card-arrow {
-  transform: translateX(4px);
 }
 
 /* ── process ── */
@@ -203,9 +191,11 @@
   transform: translateY(0);
 }
 
-.process-step.visible:hover {
-  transform: translateY(-8px);
-  transition: opacity 0.5s ease, transform 0.28s ease;
+@media (hover: hover) {
+  .process-step.visible:hover {
+    transform: translateY(-8px);
+    transition: opacity 0.5s ease, transform 0.28s ease;
+  }
 }
 
 .step-index {
@@ -260,8 +250,10 @@
   transition: transform 0.22s ease;
 }
 
-.accordion-trigger:hover {
-  transform: translateY(-3px);
+@media (hover: hover) {
+  .accordion-trigger:hover {
+    transform: translateY(-3px);
+  }
 }
 
 .accordion-item:first-child .accordion-trigger {
@@ -270,21 +262,16 @@
 
 .accordion-toggle {
   margin-left: auto;
-  font-size: 0;
+  font-size: 18px;
+  font-weight: 300;
   color: #888;
   flex-shrink: 0;
   line-height: 1;
-}
-
-.accordion-toggle::before {
-  content: '+';
-  font-size: 18px;
-  font-weight: 300;
   display: inline-block;
   transition: transform 0.35s ease;
 }
 
-.accordion-item.open .accordion-toggle::before {
+.accordion-item.open .accordion-toggle {
   transform: rotate(45deg);
 }
 
@@ -402,10 +389,6 @@
     gap: 6px;
   }
 
-  .card:hover {
-    transform: none;
-  }
-
   .card-title {
     margin-top: 12px;
   }
@@ -419,17 +402,5 @@
 
   .process-grid {
     grid-template-columns: 1fr;
-  }
-
-  .card {
-    gap: 6px;
-  }
-
-  .card-title {
-    margin-top: 12px;
-  }
-
-  .service-name {
-    font-size: 18px;
   }
 }

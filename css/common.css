@@ -38,10 +38,6 @@ a:hover {
   background-image: none;
 }
 
-.logo:hover {
-  background-size: 0%;
-}
-
 /* ── layout ── */
 
 .container {
