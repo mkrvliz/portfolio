@@ -43,9 +43,29 @@
 
 #hero p {
   margin-top: 20px;
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(20px, 2vw, 22px);
   font-weight: 300;
   letter-spacing: 0.04em;
+}
+
+/* ── typewriter (starts when body.loaded) ── */
+
+.type-h1,
+.type-p {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+}
+
+body.loaded .type-h1 {
+  animation: type-reveal 0.8s steps(13) forwards;
+}
+
+body.loaded .type-p {
+  animation: type-reveal 1s steps(23) 0.9s forwards;
+}
+
+@keyframes type-reveal {
+  to { clip-path: inset(0 0 0 0); }
 }
 
 .hero-image {
@@ -92,6 +112,14 @@
   font-size: 18px;
   font-weight: 300;
   line-height: 1.7;
+}
+
+#about p + p {
+  margin-top: 1.5em;
+}
+
+#about p strong {
+  font-weight: 600;
 }
 
 /* ── portfolio ── */
@@ -173,11 +201,12 @@
 .process-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0 24px;
+  gap: 24px;
 }
 
 .process-step {
-  padding-bottom: 40px;
+  padding: 24px;
+  border: 1px solid #7A7A7A;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -374,6 +403,10 @@
 
   .hero-btn {
     margin-top: 16px;
+  }
+
+  #about p {
+    font-size: 16px;
   }
 
   .portfolio-grid {
