@@ -53,6 +53,7 @@
 .type-h1,
 .type-p {
   display: inline-block;
+  max-width: 100%;
   clip-path: inset(0 100% 0 0);
 }
 
@@ -429,7 +430,7 @@ body.loaded .type-p {
 
 @media (max-width: 480px) {
   #hero p {
-    font-size: 17px;
+    font-size: 15px;
   }
 
   .portfolio-grid {
