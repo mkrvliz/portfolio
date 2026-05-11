@@ -62,7 +62,7 @@
   display: inline-block;
   margin-top: 32px;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 500;
   color: #4D4D4D;
 }
 
@@ -375,6 +375,10 @@
     max-height: 40vh;
     width: auto;
     max-width: 100%;
+  }
+
+  .hero-btn {
+    margin-top: 16px;
   }
 
   .portfolio-grid {
