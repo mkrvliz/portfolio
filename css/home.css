@@ -428,6 +428,10 @@ body.loaded .type-p {
 }
 
 @media (max-width: 480px) {
+  #hero p {
+    font-size: 17px;
+  }
+
   .portfolio-grid {
     grid-template-columns: 1fr;
     gap: 24px;
