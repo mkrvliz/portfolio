@@ -62,7 +62,7 @@ body.loaded .type-h1 {
 }
 
 body.loaded .type-p {
-  animation: type-reveal 1s steps(23) 0.9s forwards;
+  animation: type-reveal 1s steps(24) 0.9s forwards;
 }
 
 @keyframes type-reveal {
@@ -431,6 +431,11 @@ body.loaded .type-p {
 @media (max-width: 480px) {
   #hero p {
     font-size: 15px;
+  }
+
+  .type-p {
+    clip-path: none;
+    animation: none;
   }
 
   .portfolio-grid {
