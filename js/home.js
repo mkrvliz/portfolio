@@ -38,6 +38,28 @@ document.querySelectorAll('.process-step').forEach(function(step, i) {
   stepObserver.observe(step);
 });
 
+// ── fade-in строк контактов ──
+var contactObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var item = entry.target;
+      contactObserver.unobserve(item);
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          item.classList.add('visible');
+          var delay = parseFloat(item.style.transitionDelay) || 0;
+          setTimeout(function() { item.style.transitionDelay = '0ms'; }, delay + 500);
+        });
+      });
+    }
+  });
+}, { threshold: 0.15, rootMargin: '-53px 0px 0px 0px' });
+
+document.querySelectorAll('.contacts-list li').forEach(function(item, i) {
+  item.style.transitionDelay = i * 100 + 'ms';
+  contactObserver.observe(item);
+});
+
 // ── аккордеон услуг ──
 document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
   btn.addEventListener('click', function() {
