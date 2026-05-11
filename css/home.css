@@ -429,10 +429,6 @@ body.loaded .type-p {
 }
 
 @media (max-width: 480px) {
-  #hero p {
-    font-size: 15px;
-  }
-
   .type-p {
     clip-path: none;
     animation: none;
