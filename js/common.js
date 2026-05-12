@@ -1,7 +1,17 @@
 // ── прелоадер: полоска прогресса + быстрое печатание кода на фоне ──
+// показываем только при самом первом заходе в сессию (sessionStorage сбрасывается при закрытии вкладки)
 (function() {
   var preloader = document.getElementById('preloader');
   if (!preloader) return;
+
+  var seen = false;
+  try { seen = sessionStorage.getItem('preloaderSeen') === '1'; } catch (e) {}
+
+  if (seen) {
+    preloader.remove();
+    document.body.classList.add('loaded');
+    return;
+  }
 
   var bg      = document.getElementById('preloader-bg');
   var barFill = document.getElementById('preloader-bar-fill');
@@ -70,6 +80,7 @@
         preloader.classList.add('done');
         document.body.classList.remove('preloading');
         document.body.classList.add('loaded');
+        try { sessionStorage.setItem('preloaderSeen', '1'); } catch (e) {}
         setTimeout(function() { preloader.remove(); }, 450);
       }, 220);
     }
