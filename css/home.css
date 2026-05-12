@@ -48,17 +48,12 @@
   letter-spacing: 0.04em;
 }
 
-/* ── typewriter (starts when body.loaded) ── */
+/* ── typewriter заголовка hero (запускается после body.loaded) ── */
 
 .type-h1 {
   display: inline-block;
   max-width: 100%;
   clip-path: inset(0 100% 0 0);
-}
-
-.type-p {
-  display: inline-block;
-  max-width: 100%;
 }
 
 body.loaded .type-h1 {

@@ -1,113 +1,67 @@
-// ── fade-in карточек портфолио ──
-var cardObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      var card = entry.target;
-      card.classList.add('visible');
-      var delay = parseFloat(card.style.transitionDelay) || 0;
-      setTimeout(function() { card.style.transitionDelay = '0ms'; }, delay + 500);
-      cardObserver.unobserve(card);
-    }
-  });
-}, { threshold: 0.15, rootMargin: '-53px 0px 0px 0px' });
-
-document.querySelectorAll('.card').forEach(function(card, i) {
-  card.style.transitionDelay = (i % 3) * 100 + 'ms';
-  cardObserver.observe(card);
-});
-
-// ── fade-in карточек этапов работы ──
-var stepObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      var step = entry.target;
-      stepObserver.unobserve(step);
+// ── фабрика fade-in наблюдателей ──
+// один общий механизм для всех "появляющихся" блоков: карточки, шаги, абзацы и т.п.
+// stagger — задержка появления k-го элемента относительно начала группы (ms)
+// reveal  — длительность самой transition в css (ms), нужна чтобы корректно сбросить transition-delay
+function fadeIn(selector, stagger, reveal) {
+  var nodes = document.querySelectorAll(selector);
+  if (!nodes.length) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      observer.unobserve(el);
+      // 2 раза rAF — чтобы браузер успел применить transition-delay до добавления .visible
       requestAnimationFrame(function() {
         requestAnimationFrame(function() {
-          step.classList.add('visible');
-          var delay = parseFloat(step.style.transitionDelay) || 0;
-          setTimeout(function() { step.style.transitionDelay = '0ms'; }, delay + 500);
+          el.classList.add('visible');
+          var delay = parseFloat(el.style.transitionDelay) || 0;
+          setTimeout(function() { el.style.transitionDelay = '0ms'; }, delay + reveal);
         });
       });
-    }
+    });
+  }, { threshold: 0.15, rootMargin: '-53px 0px 0px 0px' });
+  nodes.forEach(function(el, i) {
+    el.style.transitionDelay = i * stagger + 'ms';
+    observer.observe(el);
   });
-}, { threshold: 0.15, rootMargin: '-53px 0px 0px 0px' });
+}
 
-document.querySelectorAll('.process-step').forEach(function(step, i) {
-  step.style.transitionDelay = (i % 3) * 100 + 'ms';
-  stepObserver.observe(step);
-});
-
-// ── fade-in абзацев "обо мне" последовательно ──
-var aboutObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      var p = entry.target;
-      aboutObserver.unobserve(p);
+// карточки в портфолио / шаги процесса — staggered по столбцам сетки (i % 3)
+function fadeInGrid(selector, columns, stagger, reveal) {
+  var nodes = document.querySelectorAll(selector);
+  if (!nodes.length) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      observer.unobserve(el);
       requestAnimationFrame(function() {
         requestAnimationFrame(function() {
-          p.classList.add('visible');
-          var delay = parseFloat(p.style.transitionDelay) || 0;
-          setTimeout(function() { p.style.transitionDelay = '0ms'; }, delay + 900);
+          el.classList.add('visible');
+          var delay = parseFloat(el.style.transitionDelay) || 0;
+          setTimeout(function() { el.style.transitionDelay = '0ms'; }, delay + reveal);
         });
       });
-    }
+    });
+  }, { threshold: 0.15, rootMargin: '-53px 0px 0px 0px' });
+  nodes.forEach(function(el, i) {
+    el.style.transitionDelay = (i % columns) * stagger + 'ms';
+    observer.observe(el);
   });
-}, { threshold: 0.15, rootMargin: '-53px 0px 0px 0px' });
+}
 
-document.querySelectorAll('#about p').forEach(function(p, i) {
-  p.style.transitionDelay = i * 300 + 'ms';
-  aboutObserver.observe(p);
-});
-
-// ── fade-in пунктов аккордеона услуг последовательно ──
-var accordionObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      var item = entry.target;
-      accordionObserver.unobserve(item);
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          item.classList.add('visible');
-          var delay = parseFloat(item.style.transitionDelay) || 0;
-          setTimeout(function() { item.style.transitionDelay = '0ms'; }, delay + 900);
-        });
-      });
-    }
-  });
-}, { threshold: 0.15, rootMargin: '-53px 0px 0px 0px' });
-
-document.querySelectorAll('.accordion-item').forEach(function(item, i) {
-  item.style.transitionDelay = i * 300 + 'ms';
-  accordionObserver.observe(item);
-});
-
-// ── fade-in строк контактов ──
-var contactObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      var item = entry.target;
-      contactObserver.unobserve(item);
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          item.classList.add('visible');
-          var delay = parseFloat(item.style.transitionDelay) || 0;
-          setTimeout(function() { item.style.transitionDelay = '0ms'; }, delay + 500);
-        });
-      });
-    }
-  });
-}, { threshold: 0.15, rootMargin: '-53px 0px 0px 0px' });
-
-document.querySelectorAll('.contacts-list li').forEach(function(item, i) {
-  item.style.transitionDelay = i * 100 + 'ms';
-  contactObserver.observe(item);
-});
+fadeInGrid('.card',         3, 100, 900);
+fadeInGrid('.process-step', 3, 100, 900);
+fadeIn('#about p',          300, 900);
+fadeIn('.accordion-item',   300, 900);
+fadeIn('.contacts-list li', 100, 900);
 
 // ── аккордеон услуг ──
 document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
   btn.addEventListener('click', function() {
-    btn.closest('.accordion-item').classList.toggle('open');
+    var item = btn.closest('.accordion-item');
+    var isOpen = item.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 });
 
@@ -115,28 +69,14 @@ document.querySelectorAll('.accordion-trigger').forEach(function(btn) {
 (function() {
   var canvas   = document.getElementById('hero-canvas');
   var hero     = document.getElementById('hero');
+  if (!canvas || !hero) return;
   var ctx      = canvas.getContext('2d');
   var isMobile = window.innerWidth <= 1024;
   var canvasVisible = true;
   var tickFn = null;
 
-  var codeLines = [
-    "body { font-family: 'Geist Mono', monospace; background-color: #F5EBE1; color: #4D4D4D; }",
-    "header { position: sticky; top: 0; background: #F5EBE1; border-bottom: 1px solid #7A7A7A; z-index: 100; }",
-    "#hero { display: flex; align-items: center; min-height: calc(100vh - 53px); padding: 24px 0; }",
-    ".hero-inner { display: flex; align-items: center; gap: 48px; width: 100%; }",
-    "h1 { font-size: clamp(40px, 8vw, 96px); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }",
-    ".container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }",
-    ".card { opacity: 0; transform: translateY(30px); transition: opacity 0.5s ease, transform 0.5s ease; }",
-    ".card.visible { opacity: 1; transform: translateY(0); }",
-    ".card:hover { transform: translateY(-8px); transition: transform 0.28s ease; }",
-    "nav { display: flex; gap: 32px; }   nav a { font-size: 13px; letter-spacing: 0.03em; }",
-    "section { padding: 80px 0; border-top: 1px solid #7A7A7A; }",
-    "footer { border-top: 1px solid #7A7A7A; padding: 24px 0; }",
-    ".logo { font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }",
-    ".card-image { width: 100%; aspect-ratio: 4/3; background-color: #b0b0b0; }",
-    ".service-name { font-size: 22px; font-weight: 500; letter-spacing: -0.01em; }",
-  ];
+  // строки кода для отрисовки — общий массив, объявлен в common.js
+  var codeLines = window.__codeLines || [];
 
   if (isMobile) {
     // ── бегущая строка по всему фону (мобильный / планшет) ──

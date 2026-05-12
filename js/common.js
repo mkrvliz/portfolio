@@ -1,3 +1,23 @@
+// ── строки кода для декоративных эффектов (прелоадер + hero canvas) ──
+// синхронизированы с реальным css сайта — обновлять при изменениях .card, hero и т.д.
+window.__codeLines = [
+  "body { font-family: 'Geist Mono', monospace; background-color: #F5EBE1; color: #4D4D4D; }",
+  "header { position: sticky; top: 0; background: #F5EBE1; border-bottom: 1px solid #7A7A7A; z-index: 100; }",
+  "#hero { display: flex; align-items: center; min-height: calc(100vh - 53px); padding: 24px 0; }",
+  ".hero-inner { display: flex; align-items: center; gap: 48px; width: 100%; }",
+  "h1 { font-size: clamp(40px, 8vw, 96px); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }",
+  ".container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }",
+  ".card { opacity: 0; transform: translateY(30px); transition: opacity 0.9s ease, transform 0.9s ease; }",
+  ".card.visible { opacity: 1; transform: translateY(0); }",
+  ".card:hover { transform: translateY(-8px); transition: transform 0.28s ease; }",
+  "nav { display: flex; gap: 32px; }   nav a { font-size: 13px; letter-spacing: 0.03em; }",
+  "section { padding: 80px 0; border-top: 1px solid #7A7A7A; }",
+  "footer { border-top: 1px solid #7A7A7A; padding: 24px 0; }",
+  ".logo { font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }",
+  ".card-image { width: 100%; aspect-ratio: 4/3; background-color: #b0b0b0; }",
+  ".service-name { font-size: 18px; font-weight: 300; letter-spacing: 0; }"
+];
+
 // ── прелоадер: полоска прогресса + быстрое печатание кода на фоне ──
 // показываем только при самом первом заходе в сессию (sessionStorage сбрасывается при закрытии вкладки)
 (function() {
@@ -18,23 +38,7 @@
 
   document.body.classList.add('preloading');
 
-  var codeLines = [
-    "body { font-family: 'Geist Mono', monospace; background-color: #F5EBE1; color: #4D4D4D; }",
-    "header { position: sticky; top: 0; background: #F5EBE1; border-bottom: 1px solid #7A7A7A; z-index: 100; }",
-    "#hero { display: flex; align-items: center; min-height: calc(100vh - 53px); padding: 24px 0; }",
-    ".hero-inner { display: flex; align-items: center; gap: 48px; width: 100%; }",
-    "h1 { font-size: clamp(40px, 8vw, 96px); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }",
-    ".container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }",
-    ".card { opacity: 0; transform: translateY(30px); transition: opacity 0.5s ease, transform 0.5s ease; }",
-    ".card.visible { opacity: 1; transform: translateY(0); }",
-    ".card:hover { transform: translateY(-8px); transition: transform 0.28s ease; }",
-    "nav { display: flex; gap: 32px; }   nav a { font-size: 13px; letter-spacing: 0.03em; }",
-    "section { padding: 80px 0; border-top: 1px solid #7A7A7A; }",
-    "footer { border-top: 1px solid #7A7A7A; padding: 24px 0; }",
-    ".logo { font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }",
-    ".card-image { width: 100%; aspect-ratio: 4/3; background-color: #b0b0b0; }",
-    ".service-name { font-size: 22px; font-weight: 500; letter-spacing: -0.01em; }"
-  ];
+  var codeLines = window.__codeLines;
 
   var LH = 20;
   var numLines = Math.ceil(window.innerHeight / LH) + 2;
@@ -141,23 +145,26 @@ var burgerBtn  = document.getElementById('burger-btn');
 var mobileMenu = document.getElementById('mobile-menu');
 
 function closeMobileMenu() {
+  if (!mobileMenu || !burgerBtn) return;
   mobileMenu.classList.remove('open');
   burgerBtn.classList.remove('open');
   burgerBtn.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
 }
 
-burgerBtn.addEventListener('click', function() {
-  var isOpen = mobileMenu.classList.toggle('open');
-  burgerBtn.classList.toggle('open', isOpen);
-  burgerBtn.setAttribute('aria-expanded', isOpen);
-  document.body.style.overflow = isOpen ? 'hidden' : '';
-});
+if (burgerBtn && mobileMenu) {
+  burgerBtn.addEventListener('click', function() {
+    var isOpen = mobileMenu.classList.toggle('open');
+    burgerBtn.classList.toggle('open', isOpen);
+    burgerBtn.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
 
-// закрываем меню при клике на любую ссылку внутри него
-mobileMenu.querySelectorAll('a').forEach(function(link) {
-  link.addEventListener('click', closeMobileMenu);
-});
+  // закрываем меню при клике на любую ссылку внутри него
+  mobileMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', closeMobileMenu);
+  });
+}
 
 // ── кнопка "наверх" ──
 (function() {
