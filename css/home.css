@@ -137,7 +137,7 @@ body.loaded .type-h1 {
   gap: 12px;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
 .card.visible {
@@ -213,7 +213,7 @@ body.loaded .type-h1 {
   gap: 10px;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
 .process-step.visible {
@@ -355,7 +355,7 @@ body.loaded .type-h1 {
   gap: 16px;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
 .contacts-list li.visible {
