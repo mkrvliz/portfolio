@@ -267,6 +267,14 @@ body.loaded .type-h1 {
 
 .accordion-item {
   border-top: 1px solid #7A7A7A;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.accordion-item.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .accordion-item:first-child {
