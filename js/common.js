@@ -159,6 +159,36 @@ mobileMenu.querySelectorAll('a').forEach(function(link) {
   link.addEventListener('click', closeMobileMenu);
 });
 
+// ── кнопка "наверх" ──
+(function() {
+  var btn = document.createElement('button');
+  btn.className = 'scroll-top';
+  btn.setAttribute('aria-label', 'наверх');
+  btn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M8 13 V3 M3 8 L8 3 L13 8"/></svg>';
+  document.body.appendChild(btn);
+
+  var SHOW_AFTER = 300;
+
+  function update() {
+    if (window.scrollY > SHOW_AFTER) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+
+  btn.addEventListener('click', function() {
+    if (window.__smoothScrollTo) {
+      window.__smoothScrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+})();
+
 // ── плавная прокрутка по якорям (только главная) ──
 document.querySelectorAll('nav a[href^="#"], .mobile-nav a[href^="#"]').forEach(function(link) {
   link.addEventListener('click', function(e) {

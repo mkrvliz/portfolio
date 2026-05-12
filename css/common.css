@@ -248,3 +248,46 @@ footer p {
     gap: 8px;
   }
 }
+
+/* ── кнопка "наверх" ── */
+
+.scroll-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F5EBE1;
+  border: 1px solid #4D4D4D;
+  color: #4D4D4D;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+  z-index: 90;
+  font-family: inherit;
+  padding: 0;
+}
+
+.scroll-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.scroll-top svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+@media (hover: hover) {
+  .scroll-top:hover {
+    background: #4D4D4D;
+    color: #F5EBE1;
+  }
+}
