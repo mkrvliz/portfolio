@@ -113,6 +113,14 @@ body.loaded .type-h1 {
   font-size: 18px;
   font-weight: 300;
   line-height: 1.7;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+#about p.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 #about p + p {

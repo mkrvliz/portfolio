@@ -38,6 +38,28 @@ document.querySelectorAll('.process-step').forEach(function(step, i) {
   stepObserver.observe(step);
 });
 
+// ── fade-in абзацев "обо мне" последовательно ──
+var aboutObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var p = entry.target;
+      aboutObserver.unobserve(p);
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          p.classList.add('visible');
+          var delay = parseFloat(p.style.transitionDelay) || 0;
+          setTimeout(function() { p.style.transitionDelay = '0ms'; }, delay + 900);
+        });
+      });
+    }
+  });
+}, { threshold: 0.15, rootMargin: '-53px 0px 0px 0px' });
+
+document.querySelectorAll('#about p').forEach(function(p, i) {
+  p.style.transitionDelay = i * 300 + 'ms';
+  aboutObserver.observe(p);
+});
+
 // ── fade-in строк контактов ──
 var contactObserver = new IntersectionObserver(function(entries) {
   entries.forEach(function(entry) {
