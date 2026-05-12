@@ -50,19 +50,19 @@
 
 /* ── typewriter (starts when body.loaded) ── */
 
-.type-h1,
-.type-p {
+.type-h1 {
   display: inline-block;
   max-width: 100%;
   clip-path: inset(0 100% 0 0);
 }
 
-body.loaded .type-h1 {
-  animation: type-reveal 0.8s steps(13) forwards;
+.type-p {
+  display: inline-block;
+  max-width: 100%;
 }
 
-body.loaded .type-p {
-  animation: type-reveal 1s steps(24) 0.9s forwards;
+body.loaded .type-h1 {
+  animation: type-reveal 0.8s steps(13) forwards;
 }
 
 @keyframes type-reveal {
@@ -429,11 +429,6 @@ body.loaded .type-p {
 }
 
 @media (max-width: 480px) {
-  .type-p {
-    clip-path: none;
-    animation: none;
-  }
-
   .portfolio-grid {
     grid-template-columns: 1fr;
     gap: 24px;
