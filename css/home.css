@@ -21,6 +21,8 @@
 #hero .container {
   position: relative;
   z-index: 1;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .hero-inner {
@@ -46,6 +48,16 @@
   font-size: clamp(20px, 2vw, 22px);
   font-weight: 300;
   letter-spacing: 0.04em;
+}
+
+#hero p.hero-tagline {
+  margin-top: 16px;
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+  max-width: 620px;
+  color: #4D4D4D;
 }
 
 /* ── typewriter заголовка hero (запускается после body.loaded) ── */
@@ -93,7 +105,7 @@ body.loaded .type-h1 {
 
 /* ── section headings ── */
 
-#about h2, #portfolio h2, #process h2, #services h2, #contacts h2 {
+#about h2, #portfolio h2, #process h2, #services h2, #faq h2, #reviews h2, #contacts h2 {
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -103,8 +115,25 @@ body.loaded .type-h1 {
 
 /* ── about ── */
 
+.about-inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+
+.about-text {
+  grid-column: span 2;
+  min-width: 0;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 #about p {
-  max-width: 900px;
   font-size: 18px;
   font-weight: 300;
   line-height: 1.7;
@@ -204,7 +233,7 @@ body.loaded .type-h1 {
 
 .process-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
@@ -302,7 +331,6 @@ body.loaded .type-h1 {
 }
 
 .accordion-toggle {
-  margin-left: auto;
   font-size: 18px;
   font-weight: 300;
   color: #888;
@@ -310,6 +338,16 @@ body.loaded .type-h1 {
   line-height: 1;
   display: inline-block;
   transition: transform 0.35s ease;
+}
+
+.service-price {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  color: #888;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .accordion-item.open .accordion-toggle {
@@ -345,10 +383,81 @@ body.loaded .type-h1 {
 }
 
 .service-name {
+  flex: 1;
   font-size: 18px;
   font-weight: 300;
   line-height: 1.7;
   transition: color 0.2s ease;
+}
+
+/* ── reviews ── */
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.review-card {
+  padding: 32px;
+  border: 1px solid #7A7A7A;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.review-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.review-quote {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.review-quote p {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #444;
+}
+
+.review-quote p:first-child::before {
+  content: '«';
+  margin-right: 4px;
+  color: #7A7A7A;
+}
+
+.review-quote p:last-child::after {
+  content: '»';
+  margin-left: 4px;
+  color: #7A7A7A;
+}
+
+.review-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.review-author {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.review-project {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
 }
 
 /* ── contacts ── */
@@ -391,6 +500,10 @@ body.loaded .type-h1 {
 /* ── responsive ── */
 
 @media (max-width: 1024px) {
+  #hero .container {
+    width: 100%;
+  }
+
   .hero-inner {
     flex-direction: column;
     align-items: flex-start;
@@ -421,6 +534,21 @@ body.loaded .type-h1 {
     font-size: 16px;
   }
 
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .about-text {
+    grid-column: auto;
+  }
+
+  .about-image {
+    width: 60%;
+    max-width: 320px;
+    justify-self: center;
+  }
+
   .portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
@@ -428,6 +556,10 @@ body.loaded .type-h1 {
 
   .process-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
   }
 
   .card {

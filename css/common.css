@@ -248,6 +248,35 @@ footer p {
   }
 }
 
+/* ── section CTA ── */
+
+.section-cta {
+  margin-top: 64px;
+  display: flex;
+  justify-content: center;
+}
+
+.section-cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border: 1px solid #4D4D4D;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: #4D4D4D;
+  background-image: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .section-cta a:hover {
+    background: #4D4D4D;
+    color: #F5EBE1;
+  }
+}
+
 /* ── кнопка "наверх" ── */
 
 .scroll-top {

@@ -306,6 +306,62 @@
   cursor: default;
 }
 
+/* ── review card on project page ── */
+
+.review-card {
+  padding: 32px;
+  border: 1px solid #7A7A7A;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 720px;
+}
+
+.review-quote {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.review-quote p {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #444;
+}
+
+.review-quote p:first-child::before {
+  content: '«';
+  margin-right: 4px;
+  color: #7A7A7A;
+}
+
+.review-quote p:last-child::after {
+  content: '»';
+  margin-left: 4px;
+  color: #7A7A7A;
+}
+
+.review-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.review-author {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.review-project {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+}
+
 /* ── lightbox ── */
 
 .lightbox {

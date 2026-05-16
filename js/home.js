@@ -51,9 +51,11 @@ function fadeInGrid(selector, columns, stagger, reveal) {
 }
 
 fadeInGrid('.card',         3, 100, 900);
-fadeInGrid('.process-step', 3, 100, 900);
+fadeInGrid('.process-step', 4, 100, 900);
 fadeIn('#about p',          300, 900);
-fadeIn('.accordion-item',   300, 900);
+fadeIn('#services .accordion-item', 300, 900);
+fadeIn('#faq .accordion-item',      300, 900);
+fadeIn('.review-card',      200, 900);
 fadeIn('.contacts-list li', 100, 900);
 
 // ── аккордеон услуг ──

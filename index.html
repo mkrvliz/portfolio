@@ -31,10 +31,12 @@
     <div class="container">
       <a href="index.html" class="logo">mkrvliz</a>
       <nav>
-        <a href="#about">обо мне</a>
         <a href="#portfolio">портфолио</a>
+        <a href="#about">обо мне</a>
         <a href="#services">услуги</a>
         <a href="#process">этапы работы</a>
+        <a href="#faq">частые вопросы</a>
+        <a href="#reviews">отзывы</a>
         <a href="#contacts">контакты</a>
       </nav>
       <button class="burger" id="burger-btn" aria-label="открыть меню" aria-expanded="false">
@@ -48,10 +50,12 @@
   <!-- ── mobile menu ── -->
   <div class="mobile-menu" id="mobile-menu">
     <nav class="mobile-nav">
-      <a href="#about">обо мне</a>
       <a href="#portfolio">портфолио</a>
+      <a href="#about">обо мне</a>
       <a href="#services">услуги</a>
       <a href="#process">этапы работы</a>
+      <a href="#faq">частые вопросы</a>
+      <a href="#reviews">отзывы</a>
       <a href="#contacts">контакты</a>
     </nav>
   </div>
@@ -65,23 +69,13 @@
         <div class="hero-inner">
           <div class="hero-text">
             <h1><span class="type-h1">лиза макарова</span></h1>
-            <p>веб-дизайнер + вайбкодер</p>
+            <p class="hero-tagline">сохраняю вайб и&nbsp;усиливаю бренд через&nbsp;веб-дизайн</p>
             <a href="https://t.me/mkrvliz" class="hero-btn" target="_blank" rel="noopener">написать в телеграм</a>
           </div>
           <div class="hero-image">
             <img src="images/face.jpg" alt="лиза макарова">
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ── about ── -->
-    <section id="about">
-      <div class="container">
-        <h2>обо мне</h2>
-        <p>специализируюсь на&nbsp;сайтах для&nbsp;<strong>креаторов</strong>&nbsp;— тех, кто продаёт физические изделия, цифровые продукты или&nbsp;свои услуги. керамика, украшения, косметика, одежда, онлайн-курсы, сайты для&nbsp;экспертов&nbsp;— это ко&nbsp;мне</p>
-        <p>работаю на&nbsp;стыке визуала и&nbsp;логики: от&nbsp;первого наброска до&nbsp;финального макета, который реально отражает <strong>вайб</strong> бренда, а&nbsp;не&nbsp;просто выглядит красиво</p>
-        <p>если нужен <strong>код</strong>&nbsp;— работаю с&nbsp;ним тоже. этот сайт, кстати, наглядный пример: собран из&nbsp;интереса к&nbsp;вайбкодингу и&nbsp;помощи claude code</p>
       </div>
     </section>
 
@@ -112,6 +106,26 @@
           </article>
 
         </div>
+        <div class="section-cta">
+          <a href="https://t.me/mkrvliz" target="_blank" rel="noopener">обсудить проект →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── about ── -->
+    <section id="about">
+      <div class="container">
+        <h2>обо мне</h2>
+        <div class="about-inner">
+          <div class="about-text">
+            <p>специализируюсь на&nbsp;сайтах для&nbsp;<strong>креаторов</strong>&nbsp;— тех, кто продаёт физические изделия, цифровые продукты или&nbsp;свои услуги. керамика, украшения, косметика, одежда, онлайн-курсы, сайты для&nbsp;экспертов&nbsp;— это ко&nbsp;мне</p>
+            <p>работаю на&nbsp;стыке визуала и&nbsp;логики: от&nbsp;первого наброска до&nbsp;финального макета, который реально отражает <strong>вайб</strong> бренда, а&nbsp;не&nbsp;просто выглядит красиво</p>
+            <p>если нужен <strong>код</strong>&nbsp;— работаю с&nbsp;ним тоже. этот сайт, кстати, наглядный пример: собран из&nbsp;интереса к&nbsp;вайбкодингу и&nbsp;помощи claude code</p>
+          </div>
+          <div class="about-image">
+            <img src="images/obo-mne.png" alt="лиза макарова" />
+          </div>
+        </div>
       </div>
     </section>
 
@@ -124,6 +138,7 @@
             <button class="accordion-trigger" aria-expanded="false">
               <span class="service-index">01</span>
               <span class="service-name">готовый сайт на Tilda</span>
+              <span class="service-price">от 40 000 ₽</span>
               <span class="accordion-toggle">+</span>
             </button>
             <div class="accordion-body">
@@ -134,6 +149,7 @@
             <button class="accordion-trigger" aria-expanded="false">
               <span class="service-index">02</span>
               <span class="service-name">дизайн в Figma</span>
+              <span class="service-price">от 25 000 ₽</span>
               <span class="accordion-toggle">+</span>
             </button>
             <div class="accordion-body">
@@ -144,6 +160,7 @@
             <button class="accordion-trigger" aria-expanded="false">
               <span class="service-index">03</span>
               <span class="service-name">разовые задачи</span>
+              <span class="service-price">от 3 000 ₽</span>
               <span class="accordion-toggle">+</span>
             </button>
             <div class="accordion-body">
@@ -151,6 +168,9 @@
             </div>
           </li>
         </ul>
+        <div class="section-cta">
+          <a href="https://t.me/mkrvliz" target="_blank" rel="noopener">обсудить проект →</a>
+        </div>
       </div>
     </section>
 
@@ -162,40 +182,114 @@
 
           <div class="process-step">
             <span class="step-index">01</span>
-            <h3 class="step-title">знакомство</h3>
-            <p class="step-desc">созвон, на котором обсуждаем задачу и цели. по итогам — подробное техническое задание, смета и договор</p>
+            <h3 class="step-title">бриф</h3>
+            <p class="step-desc">созвон, на&nbsp;котором обсуждаем задачу и&nbsp;цели. по&nbsp;итогам&nbsp;— подробное техническое задание, смета и&nbsp;договор</p>
           </div>
 
           <div class="process-step">
             <span class="step-index">02</span>
-            <h3 class="step-title">анализ ЦА и конкурентов</h3>
-            <p class="step-desc">изучаю аудиторию и рынок: что работает у конкурентов и что стоит использовать</p>
+            <h3 class="step-title">исследование</h3>
+            <p class="step-desc">изучаю аудиторию и&nbsp;конкурентов, собираю референсы и&nbsp;мудборд. на&nbsp;основе этого разрабатываю дизайн-концепции, на&nbsp;которые опираемся дальше</p>
           </div>
 
           <div class="process-step">
             <span class="step-index">03</span>
-            <h3 class="step-title">референсы и мудборд</h3>
-            <p class="step-desc">подбираю референсы, собираю мудборд. после согласования разрабатываю дизайн-концепции, на которые опираемся дальше</p>
+            <h3 class="step-title">дизайн</h3>
+            <p class="step-desc">разрабатываю прототип каждой страницы&nbsp;— структура, блоки, навигация. на&nbsp;его основе создаю детализированный макет в&nbsp;figma: все страницы + адаптив под другие размеры экрана</p>
           </div>
 
           <div class="process-step">
             <span class="step-index">04</span>
-            <h3 class="step-title">прототипирование</h3>
-            <p class="step-desc">разрабатываю прототип каждой страницы: структура, блоки, навигация. фиксируем логику сайта до перехода к дизайну</p>
+            <h3 class="step-title">сборка</h3>
+            <p class="step-desc">переношу дизайн на&nbsp;tilda, настраиваю сайт, если нужно&nbsp;— добавляю анимации и&nbsp;интерактивные элементы</p>
           </div>
 
-          <div class="process-step">
-            <span class="step-index">05</span>
-            <h3 class="step-title">дизайн в figma</h3>
-            <p class="step-desc">на основе прототипов и концепции создаю детализированный макет — все страницы + макеты под другие размеры экрана</p>
-          </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="process-step">
-            <span class="step-index">06</span>
-            <h3 class="step-title">сборка на tilda</h3>
-            <p class="step-desc">переношу дизайн на Tilda, настраиваю сайт, если нужно — добавляю анимации и интерактивные элементы</p>
-          </div>
+    <!-- ── faq ── -->
+    <section id="faq">
+      <div class="container">
+        <h2>частые вопросы</h2>
+        <ul class="accordion-list">
+          <li class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              <span class="service-index">01</span>
+              <span class="service-name">сроки</span>
+              <span class="accordion-toggle">+</span>
+            </button>
+            <div class="accordion-body">
+              <p>работа над&nbsp;сайтом занимает от&nbsp;20&nbsp;дней&nbsp;— точная длительность зависит от&nbsp;объёма проекта и&nbsp;согласовывается во&nbsp;время брифа. сроки фиксируются в&nbsp;смете и&nbsp;договоре</p>
+            </div>
+          </li>
+          <li class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              <span class="service-index">02</span>
+              <span class="service-name">правки</span>
+              <span class="accordion-toggle">+</span>
+            </button>
+            <div class="accordion-body">
+              <p>количество итераций правок зависит от&nbsp;выбранного тарифа. сами тарифы и&nbsp;пакет правок обсуждаем во&nbsp;время первого созвона и&nbsp;закрепляем в&nbsp;договоре</p>
+            </div>
+          </li>
+          <li class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              <span class="service-index">03</span>
+              <span class="service-name">тексты и фото</span>
+              <span class="accordion-toggle">+</span>
+            </button>
+            <div class="accordion-body">
+              <p>тексты и&nbsp;фотоматериалы предоставляет заказчик. если есть запрос&nbsp;— можем подключить нейрогенерацию для&nbsp;контента и&nbsp;визуала</p>
+            </div>
+          </li>
+          <li class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">
+              <span class="service-index">04</span>
+              <span class="service-name">предоплата</span>
+              <span class="accordion-toggle">+</span>
+            </button>
+            <div class="accordion-body">
+              <p>оплата дробится по&nbsp;этапам&nbsp;— за&nbsp;каждый этап работы вносится отдельная предоплата перед стартом</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
 
+    <!-- ── reviews ── -->
+    <section id="reviews">
+      <div class="container">
+        <h2>отзывы</h2>
+        <div class="reviews-grid">
+
+          <article class="review-card">
+            <div class="review-quote">
+              <p>оформлять заказы стали чаще. я&nbsp;трачу гораздо меньше времени на&nbsp;рутину и&nbsp;уточнение деталей. весь учёт теперь в&nbsp;одном месте, а&nbsp;также доставка оформляется самостоятельно. экономия времени мощная</p>
+              <p>на&nbsp;сайте люди чаще добавляют в&nbsp;корзину сопутствующие товары или собирают сеты, потому что видят всё наличие сразу. то&nbsp;есть средний чек вырос</p>
+              <p>так что запуск сайта&nbsp;— лучшее решение</p>
+            </div>
+            <div class="review-meta">
+              <span class="review-author">Наталья</span>
+              <span class="review-project">ох! керамика</span>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <div class="review-quote">
+              <p>очень-очень красивый сайт!!</p>
+              <p>мне нравится, что я&nbsp;даже не&nbsp;давала никаких чётких инструкций, просто описала примерную эстетику и&nbsp;дала пару примеров&nbsp;— а&nbsp;ты уже сама всё придумала и&nbsp;задизайнила на&nbsp;основе эстетики студии</p>
+              <p>ещё и&nbsp;быстро!!</p>
+            </div>
+            <div class="review-meta">
+              <span class="review-author">Вера</span>
+              <span class="review-project">Юность</span>
+            </div>
+          </article>
+
+        </div>
+        <div class="section-cta">
+          <a href="https://t.me/mkrvliz" target="_blank" rel="noopener">обсудить проект →</a>
         </div>
       </div>
     </section>
